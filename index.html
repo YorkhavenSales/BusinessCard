@@ -307,59 +307,25 @@
   ------------------------------------- */
   function parseAddress(rawAddress) {
 
-    if (!rawAddress) {
-      return {
-        display: "",
-        search: ""
-      };
-    }
+   const displayParts = [
+  street,       // 24 Samseong-ro 99-gil
+  extended,     // Jung-Hae Bldg 301
+  city,         // Gangnam District
+  region,       // Seoul
+  country       // South Korea
+].filter(Boolean);
 
+const mapParts = [
+  street,       // 24 Samseong-ro 99-gil
+  city,         // Gangnam District
+  region,       // Seoul
+  country       // South Korea
+].filter(Boolean);
 
-    /*
-      ADR 구조
-
-      PO Box;
-      Extended Address;
-      Street;
-      Locality;
-      Region;
-      Postal Code;
-      Country
-    */
-
-    const parts = rawAddress
-      .split(/(?<!\\);/)
-      .map(part => unescapeVCard(part));
-
-
-    const [
-      poBox,
-      extended,
-      street,
-      city,
-      region,
-      postalCode,
-      country
-    ] = parts;
-
-
-    const addressParts = [
-      extended,
-      street,
-      city,
-      region,
-      postalCode,
-      country
-    ].filter(Boolean);
-
-
-    return {
-
-      display: addressParts.join(", "),
-
-      search: addressParts.join(", ")
-
-    };
+return {
+  display: displayParts.join(", "),
+  search: mapParts.join(", ")
+};
 
   }
 
